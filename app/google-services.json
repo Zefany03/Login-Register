@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "31444570950",
+    "project_id": "login-register1-1da11",
+    "storage_bucket": "login-register1-1da11.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31444570950:android:3dbb43fe68b16390ea0b47",
+        "android_client_info": {
+          "package_name": "edu.uph.m23si1.login_register1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ3a56WMaXIanfCIcAwP0Pc8QTWlXKJdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

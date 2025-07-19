@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- MindCare+ Theme Colors -->
+    <color name="primary_color">#10B981</color>
+    <color name="primary_dark">#059669</color>
+    <color name="secondary_color">#14B8A6</color>
+    <color name="accent_color">#06B6D4</color>
+
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="background_light">#F9FAFB</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <color name="success_color">#10B981</color>
+    <color name="error_color">#EF4444</color>
+    <color name="warning_color">#F59E0B</color>
+</resources>
