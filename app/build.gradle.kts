@@ -58,7 +58,11 @@ dependencies {
     // Optional: BCrypt (untuk hash manual)
     implementation("org.mindrot:jbcrypt:0.4")
 
+    implementation("com.google.firebase:firebase-firestore-ktx:24.10.2")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.mpandroidchart)
 }

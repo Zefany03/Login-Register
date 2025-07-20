@@ -12,19 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Loginregister1">
         <activity
+            android:name=".EmotiontrackerActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
-            android:exported="true" />
-
-        <!-- Activity utama -->
+            android:exported="true" /> <!-- Activity utama -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
