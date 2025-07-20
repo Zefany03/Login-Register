@@ -1,5 +1,6 @@
 package edu.uph.m23si1.login_register1
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -8,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.loginfirebase.RegisterActivity
 import edu.uph.m23si1.login_register1.databinding.ActivityMainBinding // Pastikan import ini ada
 import org.mindrot.jbcrypt.BCrypt
 
@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding // Deklarasi binding
     private lateinit var sharedPreferences: SharedPreferences
 
-    private val HARDCODED_EMAIL = "user@example.com"
-    private val HARDCODED_PASSWORD_HASH = BCrypt.hashpw("password123", BCrypt.gensalt())
+    private val hardcodeDEMAIL = "user@example.com"
+    private val hardcodedPASSWORD_HASH = BCrypt.hashpw("password123", BCrypt.gensalt())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun performLogin() {
         val email = binding.etEmail.text.toString().trim() // Menggunakan binding.etEmail
         val password = binding.etPassword.text.toString().trim() // Menggunakan binding.etPassword
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
         Thread {
             Thread.sleep(1000)
-            val loginSuccess = (email == HARDCODED_EMAIL && BCrypt.checkpw(password, HARDCODED_PASSWORD_HASH))
+            val loginSuccess = (email == hardcodeDEMAIL && BCrypt.checkpw(password, hardcodedPASSWORD_HASH))
 
             runOnUiThread {
                 binding.btnLogin.isEnabled = true
@@ -136,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showWelcomeMessage() {
         val userName = sharedPreferences.getString("userFullName", "User")
         Toast.makeText(this, "Welcome to MindCare+, $userName!", Toast.LENGTH_LONG).show()

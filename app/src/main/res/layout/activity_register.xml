@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
@@ -153,12 +154,15 @@
                     app:hintTextColor="@color/primary_color"
                     app:startIconDrawable="@drawable/ic_user">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/etGender"
-                        android:layout_width="match_match"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapWords"
-                        android:text="Male" /> <!-- Default value for demo -->
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true"
+                        tools:ignore="LabelFor" />
+
 
                 </com.google.android.material.textfield.TextInputLayout>
 
