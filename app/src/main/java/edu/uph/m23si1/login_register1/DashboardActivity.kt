@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import edu.uph.m23si1.login_register1.databinding.ActivityDashboardBinding
+import edu.uph.m23si1.login_register1.databinding.ActivityMindfulnessBinding
 
 class DashboardActivity : AppCompatActivity() {
 
