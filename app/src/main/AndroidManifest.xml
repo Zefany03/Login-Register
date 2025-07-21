@@ -12,7 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Loginregister1">
         <activity
-            android:name=".EmotiontrackerActivity"
+            android:name=".MindfulnessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MentalEducationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmotionTrackerActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"

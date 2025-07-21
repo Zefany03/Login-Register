@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Pertanyaan Emosi -->
+        <!-- Judul -->
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:textColor="#666666"
             android:paddingBottom="12dp" />
 
-        <!-- Emosi Buttons -->
+        <!-- Grid Emosi -->
         <GridLayout
             android:id="@+id/gridEmotionButtons"
             android:layout_width="match_parent"
@@ -44,8 +44,9 @@
             android:columnOrderPreserved="false"
             android:useDefaultMargins="true">
 
-            <!-- Emosi 1 -->
+            <!-- Very Happy -->
             <LinearLayout
+                android:id="@+id/btnVeryHappy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -53,7 +54,6 @@
                 android:gravity="center"
                 android:background="@drawable/bg_emotion_button_selector"
                 android:padding="12dp"
-                android:id="@+id/btnVeryHappy"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -69,8 +69,7 @@
                     android:gravity="center" />
             </LinearLayout>
 
-
-            <!-- Emosi 3 -->
+            <!-- Neutral -->
             <LinearLayout
                 android:id="@+id/btnNeutral"
                 android:layout_width="0dp"
@@ -95,7 +94,7 @@
                     android:gravity="center" />
             </LinearLayout>
 
-            <!-- Emosi 4 -->
+            <!-- Sad -->
             <LinearLayout
                 android:id="@+id/btnSad"
                 android:layout_width="0dp"
@@ -120,7 +119,7 @@
                     android:gravity="center" />
             </LinearLayout>
 
-            <!-- Emosi 5 -->
+            <!-- Very Sad -->
             <LinearLayout
                 android:id="@+id/btnVerySad"
                 android:layout_width="0dp"
@@ -145,7 +144,7 @@
                     android:gravity="center" />
             </LinearLayout>
 
-            <!-- Emosi 6 -->
+            <!-- Angry -->
             <LinearLayout
                 android:id="@+id/btnAngry"
                 android:layout_width="0dp"
@@ -174,7 +173,7 @@
         <!-- Spacer -->
         <View android:layout_width="match_parent" android:layout_height="16dp" />
 
-        <!-- Grafik Emosi Mingguan -->
+        <!-- Grafik Mingguan -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -187,8 +186,7 @@
             android:id="@+id/barchart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginTop="16dp"
-            />
+            android:layout_marginTop="16dp" />
 
         <!-- Statistik Bulanan -->
         <TextView
@@ -220,7 +218,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Riwayat Emosi -->
+        <!-- Riwayat -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,6 +231,28 @@
             android:id="@+id/rvEmotionHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Tombol Navigasi -->
+        <Button
+            android:id="@+id/btnBackToDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⬅️ Kembali ke Dashboard"
+            android:backgroundTint="#1976D2"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚪 Logout"
+            android:backgroundTint="#D32F2F"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
             android:layout_marginBottom="32dp" />
+
     </LinearLayout>
 </ScrollView>

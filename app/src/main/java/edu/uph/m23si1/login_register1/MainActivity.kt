@@ -1,101 +1,76 @@
 package edu.uph.m23si1.login_register1
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import edu.uph.m23si1.login_register1.databinding.ActivityMainBinding // Pastikan import ini ada
-import org.mindrot.jbcrypt.BCrypt
+import com.google.firebase.auth.FirebaseAuth
+import edu.uph.m23si1.login_register1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding // Deklarasi binding
-    private lateinit var sharedPreferences: SharedPreferences
-
-    private val hardcodeDEMAIL = "user@example.com"
-    private val hardcodedPASSWORD_HASH = BCrypt.hashpw("password123", BCrypt.gensalt())
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        binding = ActivityMainBinding.inflate(layoutInflater) // Inisialisasi binding
-        setContentView(binding.root) // Menggunakan binding.root
+        auth = FirebaseAuth.getInstance()
 
-        sharedPreferences = getSharedPreferences("MindCarePrefs", MODE_PRIVATE)
-
-        checkLoginStatus()
-
-        setupUI()
-        setupClickListeners()
-    }
-
-    private fun checkLoginStatus() {
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
-        if (isLoggedIn) {
-            showWelcomeMessage()
-        }
-    }
-
-    private fun setupUI() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets -> // Menggunakan binding.main
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
 
-    private fun setupClickListeners() {
-        binding.btnLogin.setOnClickListener { // Menggunakan binding.btnLogin
-            performLogin()
-        }
+        binding.btnLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
 
-        binding.tvSignUp.setOnClickListener { // Menggunakan binding.tvSignUp
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
+            if (!validateInput(email, password)) return@setOnClickListener
 
-        binding.tvForgotPassword.setOnClickListener { // Menggunakan binding.tvForgotPassword
-            Toast.makeText(this, "Forgot password feature coming soon!", Toast.LENGTH_SHORT).show()
-        }
-    }
+            binding.btnLogin.isEnabled = false
+            binding.btnLogin.text = "Signing In..."
 
-    @SuppressLint("SetTextI18n")
-    private fun performLogin() {
-        val email = binding.etEmail.text.toString().trim() // Menggunakan binding.etEmail
-        val password = binding.etPassword.text.toString().trim() // Menggunakan binding.etPassword
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    binding.btnLogin.isEnabled = true
+                    binding.btnLogin.text = "Sign In"
 
-        if (!validateInput(email, password)) {
-            return
-        }
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
+                        val fullName = user?.displayName ?: "User"
+                        val userEmail = user?.email ?: email
 
-        binding.btnLogin.isEnabled = false
-        binding.btnLogin.text = "Signing In..."
+                        // Simpan login ke SharedPreferences
+                        val sharedPreferences = getSharedPreferences("MindCarePrefs", MODE_PRIVATE)
+                        with(sharedPreferences.edit()) {
+                            putBoolean("isLoggedIn", true)
+                            putString("userFullName", fullName)
+                            putString("userEmail", userEmail)
+                            apply()
+                        }
 
-        Thread {
-            Thread.sleep(1000)
-            val loginSuccess = (email == hardcodeDEMAIL && BCrypt.checkpw(password, hardcodedPASSWORD_HASH))
+                        Toast.makeText(this, "Welcome back, $fullName!", Toast.LENGTH_LONG).show()
 
-            runOnUiThread {
-                binding.btnLogin.isEnabled = true
-                binding.btnLogin.text = "Sign In"
-
-                if (loginSuccess) {
-                    val userId = 1
-                    val userFullName = "Demo User"
-                    saveLoginStatus(userId, userFullName, email)
-
-                    Toast.makeText(this, "Welcome back, $userFullName!", Toast.LENGTH_LONG).show()
-                    showWelcomeMessage()
-                } else {
-                    Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                        // Arahkan ke EmotionTrackerActivity
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        }.start()
+        }
+
+        binding.tvSignUp.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun validateInput(email: String, password: String): Boolean {
@@ -104,50 +79,16 @@ class MainActivity : AppCompatActivity() {
             binding.etEmail.requestFocus()
             return false
         }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.etEmail.error = "Please enter a valid email"
+            binding.etEmail.error = "Enter a valid email"
             binding.etEmail.requestFocus()
             return false
         }
-
         if (password.isEmpty()) {
             binding.etPassword.error = "Password is required"
             binding.etPassword.requestFocus()
             return false
         }
-
-        if (password.length < 6) {
-            binding.etPassword.error = "Password must be at least 6 characters"
-            binding.etPassword.requestFocus()
-            return false
-        }
-
         return true
-    }
-
-    private fun saveLoginStatus(userId: Int, fullName: String, email: String) {
-        with(sharedPreferences.edit()) {
-            putBoolean("isLoggedIn", true)
-            putInt("userId", userId)
-            putString("userFullName", fullName)
-            putString("userEmail", email)
-            putLong("loginTime", System.currentTimeMillis())
-            apply()
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showWelcomeMessage() {
-        val userName = sharedPreferences.getString("userFullName", "User")
-        Toast.makeText(this, "Welcome to MindCare+, $userName!", Toast.LENGTH_LONG).show()
-
-        binding.cardLogin.alpha = 0.5f // Menggunakan binding.cardLogin
-        binding.btnLogin.text = "Already Logged In"
-        binding.btnLogin.isEnabled = false
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }
