@@ -8,7 +8,7 @@ MindCare+ adalah aplikasi mobile yang dirancang untuk membantu pengguna menjaga 
 Otentikasi menggunakan Firebase Authentication.
 Registrasi dengan validasi email, password, tanggal lahir, dan jenis kelamin.
 Keamanan dan manajemen akun pengguna secara efisien.
--📊 Pemantauan Emosi Harian
+- 📊 Pemantauan Emosi Harian
 Pengguna dapat mencatat emosi harian melalui 6 ikon emosi (senang, sedih, marah, cemas, tenang, dan lainnya).
 Data emosi disimpan ke Firebase Firestore.
 Riwayat ditampilkan dalam bentuk grafik harian menggunakan MPAndroidChart.
